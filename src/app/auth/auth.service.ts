@@ -98,7 +98,7 @@ export class AuthService {
   }
 
   private handleAuthError(error: auth.Error): Promise<string> {
-    let errorMessage = 'An unknown error occurred!';
+    let errorMessage = 'Bilinmeyen bir hata oluştu!';
     switch (error.code) {
       case 'auth/email-already-in-use':
         errorMessage = 'Belirtilen e-postaya sahip kullanıcı zaten var.';
