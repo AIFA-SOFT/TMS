@@ -21,7 +21,7 @@
       </div>
       <div class="content-block-body">
         <span class="card-location-text">
-          listede
+          Süreçler
           <span class="card-list-title">{{ data.listTitle }}</span>
         </span>
       </div>
@@ -329,11 +329,11 @@
       <div *ngIf="!inProcessOfMovingCard; else inProcessOfMovingCardBlock" fxLayout="column" class="body">
         <div fxLayout="column" *ngIf="boardLists$ | async as boardLists; else loadingBoardLists">
           <mat-form-field appearance="fill">
-            <mat-label>Liste</mat-label>
+            <mat-label>Süreç</mat-label>
             <mat-select [(value)]="selectedListId" (selectionChange)="loadSelectedListCards()">
               <mat-option *ngFor="let list of boardLists; trackBy: listTrackByFn" [value]="list.id">
                 {{ list.title }}
-                <span *ngIf="list.id === data.listId"> listeye geçir</span>
+                <span *ngIf="list.id === data.listId"> Süreç'e geçir</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -369,7 +369,7 @@
           </ng-template>
         </div>
         <ng-template #loadingBoardLists>
-          <span>Proje Listeleri Yükleniyor...</span>
+          <span>Proje Süreçleri Yükleniyor...</span>
         </ng-template>
       </div>
       <ng-template #inProcessOfMovingCardBlock>

@@ -104,7 +104,7 @@ export class ListComponent implements OnInit {
         data: {
           headerTitle: this.list.title,
           bodyText:
-            'Listeyi ve tüm işlemlerini kaldırmak istediğinizden emin misiniz?',
+            'Süreçleri ve tüm işlemlerini kaldırmak istediğinizden emin misiniz?',
         },
       })
       .afterClosed()

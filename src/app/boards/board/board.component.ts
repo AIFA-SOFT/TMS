@@ -135,7 +135,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         data: {
           headerTitle: boardTitle,
           bodyText:
-            'Panoyu ve tüm listelerini kaldırmak istediğinizden emin misiniz?',
+            'Panoyu ve tüm Süreçleri kaldırmak istediğinizden emin misiniz?',
         },
       })
       .afterClosed()

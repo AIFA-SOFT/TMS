@@ -227,11 +227,11 @@ export class TaskboardService {
   ): Promise<string | void> {
     if (listCreatorId !== this.currUserId) {
       return Promise.reject(
-        'Yalnızca yönetici veya yaratıcının bu listeyi silme izni vardır.',
+        'Yalnızca yönetici veya yaratıcının bu süreçleri silme izni vardır.',
       );
     }
     await this.removeAllListCards(listId).catch(() =>
-      Promise.reject("Listede başka üye kartları olduğu için liste silinemiyor."),
+      Promise.reject("Süreçlerde başka üye kartları olduğu için süreç silinemiyor."),
     );
     return this.currBoardDoc
       .collection('lists')
