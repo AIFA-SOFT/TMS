@@ -1,0 +1,40 @@
+<mat-toolbar style="background-color: #108AE4">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button fxHide.xs routerLink="/boards">
+      <mat-icon>view_module</mat-icon>
+      Projeler
+    </button>
+    <button mat-icon-button fxHide fxShow.xs routerLink="/boards">
+      <mat-icon>view_module</mat-icon>
+    </button>
+    <span class="header-proj-title">ÇART APP | {{ projectTitle }}</span>
+    <div
+      *ngIf="user$ | async as user"
+      class="user-avatar-wrapper"
+      [matMenuTriggerFor]="userMenu"
+      [matMenuTriggerData]="user"
+    >
+
+    <img [src]="user.avatarURL" [alt]="user.username"  />
+
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-menu #userMenu="matMenu">
+  <ng-template matMenuContent let-username="username">
+    <div fxLayout="row" fxLayoutAlign="center center" class="menu-username">
+      <p *ngIf="username != null">{{ username }}</p>
+      <p *ngIf="username  == null">ÇART APP TMS</p>
+    </div>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>account_circle</mat-icon>
+    <span>PROFİL</span>
+  </button>
+  <button mat-menu-item (click)="onSignOut()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>ÇIKIŞ YAP</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,23 @@
+<mat-nav-list>
+  <a mat-list-item (click)="openFileDialog()">
+    <input
+      type="file"
+      #fileInput
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      hidden
+    />
+    <span mat-line>Yeni Avatar Ekle</span>
+    <mat-icon>cloud_upload</mat-icon>
+  </a>
+
+  <a mat-list-item class="remove-image-item" (click)="onImageDelete()">
+    <span mat-line>Avatarı Sil (varsayılanı ayarla)</span>
+    <mat-icon>delete</mat-icon>
+  </a>
+
+  <a mat-list-item (click)="onCancel()">
+    <span mat-line>İptal</span>
+    <mat-icon>clear</mat-icon>
+  </a>
+</mat-nav-list>
