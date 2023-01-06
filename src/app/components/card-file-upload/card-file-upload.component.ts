@@ -1,9 +1,6 @@
 import { firestore } from 'firebase/app';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import {
-  AngularFireStorage,
-  AngularFireUploadTask,
-} from '@angular/fire/storage';
+import { AngularFireStorage, AngularFireUploadTask, } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 
 import { CardAttachment } from '@core/models/card-attachment.model';

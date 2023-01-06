@@ -28,7 +28,7 @@ export class BoardsComponent implements OnInit {
     private authService: AuthService,
     private taskboardService: TaskboardService,
     public dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.data.subscribe((data: Data) => {

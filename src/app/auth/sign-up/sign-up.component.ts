@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Data } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { environment } from '@env/environment';
 import { AuthService } from '../auth.service';
 
@@ -63,8 +62,6 @@ export class SignUpComponent implements OnInit {
       }
     });
   }
-
-  // tslint:disable: semicolon
   showErrorSnackBar = (errMsg: string): void => {
     this.snackBar.open(errMsg, 'OK', {
       verticalPosition: 'top',

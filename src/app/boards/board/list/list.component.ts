@@ -5,18 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
-
 import { List } from '@core/models/list.model';
 import { Card } from '@core/models/card.model';
 import { TaskboardService } from '@core/taskboard.service';
 import { ListSorting } from '@core/models/list-sorting.model';
 import { CardDialogComponent } from '@components/card-dialog/card-dialog.component';
 import { RemovalConfirmDialogComponent } from '@components/removal-confirm-dialog/removal-confirm-dialog.component';
-import {
-  cardTrackByFn,
-  memberTrackByFn,
-  tagTrackByFn,
-} from '@app/utils/trackby-functions';
+import { cardTrackByFn, memberTrackByFn, tagTrackByFn } from '@app/utils/trackby-functions';
 
 @Component({
   selector: 'app-list',
@@ -39,7 +34,7 @@ export class ListComponent implements OnInit {
     private taskboardService: TaskboardService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.listTitleControl = new FormControl(

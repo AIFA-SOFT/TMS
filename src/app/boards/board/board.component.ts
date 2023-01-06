@@ -1,13 +1,5 @@
 // tslint:disable: align
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-  OnDestroy,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
@@ -197,7 +189,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     return this.board.usersIdsWhoseBoardIsFavorite.includes(this.currUser.id);
   }
 
-  // tslint:disable: semicolon
   newMemberValidator = (control: FormControl): object | null => {
     const controlValue = control.value;
     if (controlValue) {

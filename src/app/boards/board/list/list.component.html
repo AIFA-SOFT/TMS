@@ -1,115 +1,55 @@
 <div class="list" fxLayout="column">
   <div class="header" fxLayout="row" fxLayoutAlign="start start">
     <div class="field-wrapper" fxFlex>
-      <textarea
-        matInput
-        class="field"
-        cdkTextareaAutosize
-        [formControl]="listTitleControl"
-        (keydown.enter)="$event.preventDefault()"
-        (keyup.enter)="$event.target.blur()"
-        (focusout)="onEditListTitle(list.title)"
-      ></textarea>
+      <textarea matInput class="field" cdkTextareaAutosize [formControl]="listTitleControl"
+        (keydown.enter)="$event.preventDefault()" (keyup.enter)="$event.target.blur()"
+        (focusout)="onEditListTitle(list.title)"></textarea>
     </div>
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="listMenu"
-      [matMenuTriggerData]="{ listId: list.id, listTitle: list.title }"
-    >
+    <button mat-icon-button [matMenuTriggerFor]="listMenu"
+      [matMenuTriggerData]="{ listId: list.id, listTitle: list.title }">
       <mat-icon>more_vert</mat-icon>
     </button>
   </div>
 
-  <div
-    *ngIf="cards; else loadingCardsBlock"
-    class="body scrollbar-y scrollbar-thin scrollbar-white"
-    fxLayout="column"
-    fxLayoutGap="5px"
-    cdkDropList
-    [cdkDropListData]="[list.id, cards.length]"
-    (cdkDropListDropped)="onCardDrop($event)"
-  >
-    <mat-card
-      *ngFor="let card of cards; trackBy: cardTrackByFn"
-      class="card"
-      (click)="openCardDialog(card)"
-      cdkDrag
-      [cdkDragData]="card"
-    >
+  <div *ngIf="cards; else loadingCardsBlock" class="body scrollbar-y scrollbar-thin scrollbar-white" fxLayout="column"
+    fxLayoutGap="5px" cdkDropList [cdkDropListData]="[list.id, cards.length]" (cdkDropListDropped)="onCardDrop($event)">
+    <mat-card *ngFor="let card of cards; trackBy: cardTrackByFn" class="card" (click)="openCardDialog(card)" cdkDrag
+      [cdkDragData]="card">
       <div class="card-drag-placeholder" *cdkDragPlaceholder></div>
-      <div
-        *ngIf="card.wallpaperURL as wallpaperURL"
-        class="wallpaper-preview-wrapper"
-      >
+      <div *ngIf="card.wallpaperURL as wallpaperURL" class="wallpaper-preview-wrapper">
         <img [src]="wallpaperURL" />
       </div>
-      <div
-        *ngIf="card.tags.length"
-        fxLayout="row wrap"
-        class="card-tags-preview"
-      >
-        <div
-          *ngFor="let tag of card.tags; trackBy: tagTrackByFn"
-          fxLayoutAlign="start center"
-          class="card-tag"
-          [ngStyle]="{ 'background-color': tag.color }"
-        >
+      <div *ngIf="card.tags.length" fxLayout="row wrap" class="card-tags-preview">
+        <div *ngFor="let tag of card.tags; trackBy: tagTrackByFn" fxLayoutAlign="start center" class="card-tag"
+          [ngStyle]="{ 'background-color': tag.color }">
           <span>{{ tag.name }}</span>
         </div>
       </div>
       <span class="title">{{ card.title }}</span>
-      <div
-        *ngIf="
+      <div *ngIf="
           card.description.length ||
           card.usersIdsWhoVoted.length ||
           card.attachments.length
-        "
-        class="content-preview"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-        fxLayoutGap="5px"
-      >
-        <div
-          *ngIf="card.description.length"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-        >
+        " class="content-preview" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div *ngIf="card.description.length" fxLayout="row" fxLayoutAlign="start center">
           <mat-icon>description</mat-icon>
         </div>
-        <div
-          *ngIf="card.usersIdsWhoVoted.length as votesAmount"
-          class="highlighted"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          fxLayoutGap="5px"
-        >
+        <div *ngIf="card.usersIdsWhoVoted.length as votesAmount" class="highlighted" fxLayout="row"
+          fxLayoutAlign="start center" fxLayoutGap="5px">
           <mat-icon>thumb_up</mat-icon>
           <span>{{ votesAmount }}</span>
         </div>
-        <div
-          *ngIf="card.attachments.length as attachmentsAmount"
-          class="highlighted"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          fxLayoutGap="3px"
-        >
+        <div *ngIf="card.attachments.length as attachmentsAmount" class="highlighted" fxLayout="row"
+          fxLayoutAlign="start center" fxLayoutGap="3px">
           <mat-icon>attach_file</mat-icon>
           <span>{{ attachmentsAmount }}</span>
         </div>
       </div>
 
-      <div
-        *ngIf="card.members.length"
-        fxLayout="row wrap"
-        fxLayoutAlign="end center"
-        fxLayoutGap="2px"
-        class="members-preview"
-      >
-        <div
-          class="user-avatar-wrapper"
-          *ngFor="let member of card.members; trackBy: memberTrackByFn"
-          [matTooltip]="member.username"
-        >
+      <div *ngIf="card.members.length" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="2px"
+        class="members-preview">
+        <div class="user-avatar-wrapper" *ngFor="let member of card.members; trackBy: memberTrackByFn"
+          [matTooltip]="member.username">
           <img [src]="member.avatarURL" [alt]="member.username" />
         </div>
       </div>
@@ -117,29 +57,16 @@
   </div>
 
   <div class="footer" fxLayout="column">
-    <button
-      mat-flat-button
-      [fxHide]="isNewCardTemplateOpened"
-      (click)="openNewCardTemplate()"
-    >
+    <button mat-flat-button [fxHide]="isNewCardTemplateOpened" (click)="openNewCardTemplate()">
       <mat-icon>add</mat-icon>
       <span>Yeni İşlem Ekle</span>
     </button>
 
-    <mat-card
-      fxLayout="column"
-      [fxShow]="isNewCardTemplateOpened"
-      (focusout)="closeNewCardTemplate()"
-    >
+    <mat-card fxLayout="column" [fxShow]="isNewCardTemplateOpened" (focusout)="closeNewCardTemplate()">
       <mat-form-field>
         <mat-label>İşlem Başlığı</mat-label>
-        <textarea
-          #newCardTitleField
-          matInput
-          cdkTextareaAutosize
-          (keydown.enter)="$event.preventDefault()"
-          (keyup.enter)="onAddCardToList()"
-        ></textarea>
+        <textarea #newCardTitleField matInput cdkTextareaAutosize (keydown.enter)="$event.preventDefault()"
+          (keyup.enter)="onAddCardToList()"></textarea>
       </mat-form-field>
     </mat-card>
   </div>
@@ -161,11 +88,7 @@
       <mat-icon>sort</mat-icon>
       <span>Süreçleri Sırala</span>
     </button>
-    <button
-      mat-menu-item
-      (click)="openListRemovalConfirmDialog()"
-      class="remove-list-btn"
-    >
+    <button mat-menu-item (click)="openListRemovalConfirmDialog()" class="remove-list-btn">
       <mat-icon color="warn">delete</mat-icon>
       <span>Süreci Sil</span>
     </button>

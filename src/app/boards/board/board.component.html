@@ -1,46 +1,25 @@
 <mat-sidenav-container *ngIf="board">
-  <mat-sidenav-content
-    class="board-wrapper"
-    fxLayout="column"
-    [ngStyle]="{ 'background-color': board.backgroundColor }"
-  >
-    <div
-      class="board-panel"
-      fxLayout="row"
-      fxLayoutAlign="space-between center"
-    >
+  <mat-sidenav-content class="board-wrapper" fxLayout="column"
+    [ngStyle]="{ 'background-color': board.backgroundColor }">
+    <div class="board-panel" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutGap="5px">
-        <input
-          type="text"
-          class="title-field"
-          [formControl]="boardTitleControl"
-          (keyup.enter)="$event.target.blur()"
-          (focusout)="onEditBoardTitle(board.title)"
-        />
+        <input type="text" class="title-field" [formControl]="boardTitleControl" (keyup.enter)="$event.target.blur()"
+          (focusout)="onEditBoardTitle(board.title)" />
         <mat-divider [vertical]="true"></mat-divider>
         <div *ngIf="!mobileQuery.matches" fxLayout="row" fxLayoutGap="5px">
-          <button
-            mat-icon-button
-            color="accent"
-            (click)="changeBoardFavor()"
-            [matTooltip]="
+          <button mat-icon-button color="accent" (click)="changeBoardFavor()" [matTooltip]="
               isUsersFavoriteBoard()
                 ? 'Favorilerden Çıkar'
                 : 'Favorilere Ekle'
-            "
-          >
+            ">
             <mat-icon>
               {{ isUsersFavoriteBoard() ? 'start' : 'star_border' }}
             </mat-icon>
           </button>
           <mat-divider [vertical]="true"></mat-divider>
           <div fxLayout="row" fxLayoutAlign="start center">
-            <div
-              *ngFor="let member of board.members; trackBy: memberTrackByFn"
-              [matTooltip]="member.username"
-              class="user-avatar-wrapper"
-            >
-              <!-- <img [src]="member.avatarURL" [alt]="member.username" /> -->
+            <div *ngFor="let member of board.members; trackBy: memberTrackByFn" [matTooltip]="member.username"
+              class="user-avatar-wrapper">
             </div>
           </div>
           <button mat-stroked-button [matMenuTriggerFor]="addMemberMenu">
@@ -58,42 +37,21 @@
       </button>
     </div>
 
-    <section
-      *ngIf="lists$ | async as lists; else loadingLists"
-      fxLayout="row"
-      class="lists scrollbar-x scrollbar-thick scrollbar-white"
-      fxFlex
-      cdkDropListGroup
-    >
-      <app-list
-        *ngFor="let list of lists; trackBy: listTrackByFn"
-        [listData]="list"
-      ></app-list>
+    <section *ngIf="lists$ | async as lists; else loadingLists" fxLayout="row"
+      class="lists scrollbar-x scrollbar-thick scrollbar-white" fxFlex cdkDropListGroup>
+      <app-list *ngFor="let list of lists; trackBy: listTrackByFn" [listData]="list"></app-list>
 
       <div class="new-list" fxLayout="column">
-        <button
-          mat-flat-button
-          [fxHide]="isNewListTemplateOpened"
-          (click)="openNewListTemplate()"
-        >
+        <button mat-flat-button [fxHide]="isNewListTemplateOpened" (click)="openNewListTemplate()">
           <mat-icon>add</mat-icon>
           <span>Süreç Ekle</span>
         </button>
 
-        <mat-card
-          fxLayout="column"
-          [fxShow]="isNewListTemplateOpened"
-          (focusout)="closeNewListTemplate()"
-        >
+        <mat-card fxLayout="column" [fxShow]="isNewListTemplateOpened" (focusout)="closeNewListTemplate()">
           <mat-form-field>
             <mat-label>Süreç Başlığı</mat-label>
-            <textarea
-              #newListTitleField
-              matInput
-              cdkTextareaAutosize
-              (keydown.enter)="$event.preventDefault()"
-              (keyup.enter)="onAddListToBoard()"
-            ></textarea>
+            <textarea #newListTitleField matInput cdkTextareaAutosize (keydown.enter)="$event.preventDefault()"
+              (keyup.enter)="onAddListToBoard()"></textarea>
           </mat-form-field>
         </mat-card>
       </div>
@@ -106,19 +64,11 @@
     </ng-template>
   </mat-sidenav-content>
 
-  <mat-sidenav
-    fxLayout="column"
-    #boardMenu
-    position="end"
-    [mode]="mobileQuery.matches ? 'over' : 'side'"
-  >
+  <mat-sidenav fxLayout="column" #boardMenu position="end" [mode]="mobileQuery.matches ? 'over' : 'side'">
     <div class="board-menu-container">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
         <h4 style="text-align: center; position: relative; left:15%;">PROJE AYARLARI</h4>
-        <button
-          mat-icon-button
-          (click)="boardMenu.close(); isBoardBackColorsBlockOpened = false"
-        >
+        <button mat-icon-button (click)="boardMenu.close(); isBoardBackColorsBlockOpened = false">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
@@ -133,28 +83,22 @@
           <mat-list-item (click)="changeBoardFavor()">
             <mat-icon matListIcon>{{
               isUsersFavoriteBoard() ? 'star' : 'star_border'
-            }}</mat-icon>
+              }}</mat-icon>
             <h3 matLine>
               {{
-                isUsersFavoriteBoard()
-                  ? 'Favorilerden Çıkar'
-                  : 'Favorilere Ekle'
+              isUsersFavoriteBoard()
+              ? 'Favorilerden Çıkar'
+              : 'Favorilere Ekle'
               }}
             </h3>
           </mat-list-item>
-          <mat-list-item
-            *ngIf="isBoardAdmin(board.adminId, currUser.id)"
-            class="warn-color"
-            (click)="openBoardRemovalConfirmDialog(board.title)"
-          >
+          <mat-list-item *ngIf="isBoardAdmin(board.adminId, currUser.id)" class="warn-color"
+            (click)="openBoardRemovalConfirmDialog(board.title)">
             <mat-icon matListIcon>delete</mat-icon>
             <h3 matLine>Projeyi Sil</h3>
           </mat-list-item>
-          <mat-list-item
-            class="warn-color"
-            *ngIf="!isBoardAdmin(board.adminId, currUser.id)"
-            (click)="onRemoveMember(currUser.id)"
-          >
+          <mat-list-item class="warn-color" *ngIf="!isBoardAdmin(board.adminId, currUser.id)"
+            (click)="onRemoveMember(currUser.id)">
             <mat-icon matListIcon>arrow_forward</mat-icon>
             <h3 matLine>Projeden Ayrıl</h3>
           </mat-list-item>
@@ -169,12 +113,8 @@
             </mat-expansion-panel-header>
             <ng-template matExpansionPanelContent>
               <div class="board-color-cards-grid">
-                <mat-card
-                  *ngFor="let color of boardBackColors"
-                  [ngStyle]="{ 'background-color': color }"
-                  fxLayoutAlign="center center"
-                  (click)="onChangeBoardBackColor(board.backgroundColor, color)"
-                >
+                <mat-card *ngFor="let color of boardBackColors" [ngStyle]="{ 'background-color': color }"
+                  fxLayoutAlign="center center" (click)="onChangeBoardBackColor(board.backgroundColor, color)">
                   <mat-icon *ngIf="board.backgroundColor === color">
                     check
                   </mat-icon>
@@ -185,35 +125,23 @@
         </mat-accordion>
         <mat-list>
           <h3 matSubheader>Members ({{ board.members.length }})</h3>
-          <mat-list-item
-            *ngFor="let member of board.members; trackBy: memberTrackByFn"
-          >
-            <img
-              matListAvatar
-              [src]="member.avatarURL"
-              [alt]="member.username"
-            />
+          <mat-list-item *ngFor="let member of board.members; trackBy: memberTrackByFn">
+            <img matListAvatar [src]="member.avatarURL" [alt]="member.username" />
             <h3 matLine>
               {{ member.fullName }}
               <span class="member-role">
                 ({{
-                  isBoardAdmin(board.adminId, member.id) ? 'Admin' : 'Member'
+                isBoardAdmin(board.adminId, member.id) ? 'Admin' : 'Member'
                 }})
               </span>
             </h3>
             <p matLine>
               <span> @{{ member.username }} </span>
             </p>
-            <button
-              mat-icon-button
-              color="warn"
-              matTooltip="Projeyi Sil"
-              *ngIf="
+            <button mat-icon-button color="warn" matTooltip="Projeyi Sil" *ngIf="
                 isBoardAdmin(board.adminId, currUser.id) &&
                 member.id !== board.adminId
-              "
-              (click)="onRemoveMember(member.id)"
-            >
+              " (click)="onRemoveMember(member.id)">
               <mat-icon>remove_circle</mat-icon>
             </button>
           </mat-list-item>
@@ -232,10 +160,7 @@
     <div fxLayout="column" fxLayoutGap="5px" (click)="$event.stopPropagation()">
       <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
         <span>EKİP ÜYE EKLE </span>
-        <button
-          mat-icon-button
-          (click)="newMemberNameControl.reset(); menuTrigger.closeMenu()"
-        >
+        <button mat-icon-button (click)="newMemberNameControl.reset(); menuTrigger.closeMenu()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
@@ -243,12 +168,8 @@
       <div class="body" fxLayout="column">
         <mat-form-field appearance="outline">
           <mat-label>KAYITLI KULLANICI ADI GİRİNİZ</mat-label>
-          <input
-            matInput
-            placeholder="ADMIN123"
-            [formControl]="newMemberNameControl"
-            (keyup.enter)="onAddNewMember()"
-          />
+          <input matInput placeholder="ADMIN123" [formControl]="newMemberNameControl"
+            (keyup.enter)="onAddNewMember()" />
           <mat-error *ngIf="newMemberNameControl.hasError('emptyValue')">
             Lütfen geçerli bir kullanıcı adı girin.
           </mat-error>
@@ -259,12 +180,7 @@
             Bu kullanıcı zaten ekip üyesidir.
           </mat-error>
         </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="onAddNewMember()"
-          [disabled]="newMemberNameControl.invalid"
-        >
+        <button mat-raised-button color="primary" (click)="onAddNewMember()" [disabled]="newMemberNameControl.invalid">
           ÜYE EKLE
         </button>
       </div>
